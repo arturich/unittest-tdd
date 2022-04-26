@@ -1,13 +1,14 @@
 package com.luv2code.tdd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class FizzBuzzTest {
@@ -61,6 +62,19 @@ class FizzBuzzTest {
 		String expected = "1";
 		
 		assertEquals(expected, FizzBuzz.compute(1),"Should return 1");
+		
+		
+	}
+	
+	@DisplayName("Testing with small data file")
+	@ParameterizedTest(name="value={0}, expected={1}")
+	@CsvFileSource(resources="/small-test-data.csv")
+	@Order(5)
+	void testSmallDataFile(int value, String expected) {
+
+		
+		
+		assertEquals(expected, FizzBuzz.compute(value),"Should return "+expected);
 		
 		
 	}
